@@ -680,21 +680,7 @@ public class QuantityMeasurementAppTest {
 
                 result);
     }
-    @Test
-    void testAddition_NullSecondOperand() {
 
-        assertThrows(
-                IllegalArgumentException.class,
-
-                () -> QuantityLength.add(
-
-                        new QuantityLength(
-                                1,
-                                LengthUnit.FEET),
-
-                        null
-                ));
-    }
     @Test
     void testAddition_LargeValues() {
 
@@ -740,5 +726,145 @@ public class QuantityMeasurementAppTest {
                         LengthUnit.FEET),
 
                 result);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit_Feet() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH),
+
+                        LengthUnit.FEET);
+
+        assertEquals(
+
+                new QuantityLength(
+                        2,
+                        LengthUnit.FEET),
+
+                result);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit_Inches() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH),
+
+                        LengthUnit.INCH);
+
+        assertEquals(
+
+                new QuantityLength(
+                        24,
+                        LengthUnit.INCH),
+
+                result);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit_Yards() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH),
+
+                        LengthUnit.YARD);
+
+        assertEquals(
+                0.6667,
+                result.getValue(),
+                0.001);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit_Centimeters() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.INCH),
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.INCH),
+
+                        LengthUnit.CENTIMETER);
+
+        assertEquals(
+                5.08,
+                result.getValue(),
+                0.01);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit_Commutativity() {
+
+        QuantityLength first =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH),
+
+                        LengthUnit.YARD);
+
+        QuantityLength second =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH),
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        LengthUnit.YARD);
+
+        assertEquals(first, second);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit_NullTargetUnit() {
+
+        assertThrows(
+
+                IllegalArgumentException.class,
+
+                () -> QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH),
+
+                        null));
     }
 }

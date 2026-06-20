@@ -168,6 +168,45 @@ public class QuantityMeasurementApp {
                         3,
                         LengthUnit.FEET)
         );
+        demonstrateLengthAddition(
+
+                new QuantityLength(
+                        1,
+                        LengthUnit.FEET),
+
+                new QuantityLength(
+                        12,
+                        LengthUnit.INCH),
+
+                LengthUnit.FEET);
+
+
+
+        demonstrateLengthAddition(
+
+                new QuantityLength(
+                        1,
+                        LengthUnit.FEET),
+
+                new QuantityLength(
+                        12,
+                        LengthUnit.INCH),
+
+                LengthUnit.INCH);
+
+
+
+        demonstrateLengthAddition(
+
+                new QuantityLength(
+                        1,
+                        LengthUnit.FEET),
+
+                new QuantityLength(
+                        12,
+                        LengthUnit.INCH),
+
+                LengthUnit.YARD);
     }
     public static void demonstrateLengthAddition(
             QuantityLength first,
@@ -197,6 +236,28 @@ public class QuantityMeasurementApp {
                         unit2);
 
         System.out.println(result);
+    }
+    public static void demonstrateLengthAddition(
+
+            QuantityLength first,
+
+            QuantityLength second,
+
+            LengthUnit targetUnit) {
+
+        QuantityLength result =
+                QuantityLength.add(
+                        first,
+                        second,
+                        targetUnit);
+
+        System.out.println(
+
+                first +
+                        " + " +
+                        second +
+                        " = " +
+                        result);
     }
 
 

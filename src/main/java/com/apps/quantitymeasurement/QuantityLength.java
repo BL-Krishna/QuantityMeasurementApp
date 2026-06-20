@@ -152,6 +152,7 @@ public class QuantityLength {
 
         return first.add(second);
     }
+
     public static QuantityLength add(
             double value1,
             LengthUnit unit1,
@@ -170,4 +171,81 @@ public class QuantityLength {
 
         return first.add(second);
     }
+    private QuantityLength addInternal(
+            QuantityLength other,
+            LengthUnit targetUnit) {
+
+        if (other == null) {
+            throw new IllegalArgumentException(
+                    "Other quantity cannot be null");
+        }
+
+        if (targetUnit == null) {
+            throw new IllegalArgumentException(
+                    "Target unit cannot be null");
+        }
+
+        double totalBaseValue =
+                this.convertToBaseUnit()
+                        + other.convertToBaseUnit();
+
+        double convertedValue =
+                totalBaseValue /
+                        targetUnit.getConversionFactor();
+
+        return new QuantityLength(
+                convertedValue,
+                targetUnit);
+    }
+    public QuantityLength add(
+            QuantityLength other,
+            LengthUnit targetUnit) {
+
+        return addInternal(
+                other,
+                targetUnit);
+    }
+
+    public static QuantityLength add(
+            QuantityLength first,
+            QuantityLength second,
+            LengthUnit targetUnit) {
+
+        if (first == null ||
+                second == null) {
+
+            throw new IllegalArgumentException(
+                    "Operands cannot be null");
+        }
+
+        return first.add(
+                second,
+                targetUnit);
+    }
+    public static QuantityLength add(
+            double value1,
+            LengthUnit unit1,
+
+            double value2,
+            LengthUnit unit2,
+
+            LengthUnit targetUnit) {
+
+        QuantityLength first =
+                new QuantityLength(
+                        value1,
+                        unit1);
+
+        QuantityLength second =
+                new QuantityLength(
+                        value2,
+                        unit2);
+
+        return add(
+                first,
+                second,
+                targetUnit);
+    }
+
+
 }
