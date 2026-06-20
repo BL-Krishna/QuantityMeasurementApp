@@ -2,36 +2,35 @@ package com.apps.quantitymeasurement;
 
 public class QuantityMeasurementApp {
 
-    public static class Feet {
+    public static boolean checkEquality(
+            double value1,
+            LengthUnit unit1,
+            double value2,
+            LengthUnit unit2) {
 
-        private final double value;
+        QuantityLength first =
+                new QuantityLength(value1, unit1);
 
-        public Feet(double value) {
-            this.value = value;
-        }
+        QuantityLength second =
+                new QuantityLength(value2, unit2);
 
-        @Override
-        public boolean equals(Object obj) {
-
-            if (this == obj) {
-                return true;
-            }
-
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-
-            Feet feet = (Feet) obj;
-
-            return Double.compare(value, feet.value) == 0;
-        }
+        return first.equals(second);
     }
 
     public static void main(String[] args) {
 
-        Feet firstFeet = new Feet(1.0);
-        Feet secondFeet = new Feet(1.0);
+        System.out.println(
+                checkEquality(
+                        1,
+                        LengthUnit.FEET,
+                        12,
+                        LengthUnit.INCH));
 
-        System.out.println(firstFeet.equals(secondFeet));
+        System.out.println(
+                checkEquality(
+                        1,
+                        LengthUnit.INCH,
+                        1,
+                        LengthUnit.INCH));
     }
 }
