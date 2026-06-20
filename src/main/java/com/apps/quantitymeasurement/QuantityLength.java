@@ -2,13 +2,23 @@ package com.apps.quantitymeasurement;
 
 import java.util.Objects;
 
+/**
+ * Represents an immutable length measurement.
+ */
 public class QuantityLength {
+
+    private static final double EPSILON = 0.0001;
 
     private final double value;
     private final LengthUnit unit;
 
     public QuantityLength(double value,
                           LengthUnit unit) {
+
+        if (!Double.isFinite(value)) {
+            throw new IllegalArgumentException(
+                    "Value must be finite");
+        }
 
         if (unit == null) {
             throw new IllegalArgumentException(
@@ -19,8 +29,54 @@ public class QuantityLength {
         this.unit = unit;
     }
 
-    private double convertToFeet() {
+    private double convertToBaseUnit() {
         return value * unit.getConversionFactor();
+    }
+
+    /**
+     * Convert current quantity to target unit.
+     */
+    public QuantityLength convertTo(
+            LengthUnit targetUnit) {
+
+        if (targetUnit == null) {
+            throw new IllegalArgumentException(
+                    "Target unit cannot be null");
+        }
+
+        double baseValue = convertToBaseUnit();
+
+        double convertedValue =
+                baseValue /
+                        targetUnit.getConversionFactor();
+
+        return new QuantityLength(
+                convertedValue,
+                targetUnit);
+    }
+
+    /**
+     * Static conversion API
+     */
+    public static double convert(
+            double value,
+            LengthUnit source,
+            LengthUnit target) {
+
+        QuantityLength quantity =
+                new QuantityLength(value, source);
+
+        return quantity
+                .convertTo(target)
+                .getValue();
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public LengthUnit getUnit() {
+        return unit;
     }
 
     @Override
@@ -36,13 +92,21 @@ public class QuantityLength {
         QuantityLength other =
                 (QuantityLength) obj;
 
-        return Double.compare(
-                convertToFeet(),
-                other.convertToFeet()) == 0;
+        return Math.abs(
+                convertToBaseUnit() -
+                        other.convertToBaseUnit())
+                < EPSILON;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(convertToFeet());
+        return Objects.hash(
+                Math.round(
+                        convertToBaseUnit() * 10000));
+    }
+
+    @Override
+    public String toString() {
+        return value + " " + unit;
     }
 }
