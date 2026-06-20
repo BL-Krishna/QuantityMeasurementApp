@@ -107,6 +107,67 @@ public class QuantityLength {
 
     @Override
     public String toString() {
-        return value + " " + unit;
+
+        return String.format(
+                "Quantity(%.4f, %s)",
+                value,
+                unit);
+    }
+
+    public QuantityLength add(
+            QuantityLength other) {
+
+        if (other == null) {
+            throw new IllegalArgumentException(
+                    "Other quantity cannot be null");
+        }
+
+        double thisInBase =
+                convertToBaseUnit();
+
+        double otherInBase =
+                other.convertToBaseUnit();
+
+        double totalBase =
+                thisInBase + otherInBase;
+
+        double resultValue =
+                totalBase /
+                        unit.getConversionFactor();
+
+        return new QuantityLength(
+                resultValue,
+                unit);
+    }
+    public static QuantityLength add(
+            QuantityLength first,
+            QuantityLength second) {
+
+        if (first == null ||
+                second == null) {
+
+            throw new IllegalArgumentException(
+                    "Operands cannot be null");
+        }
+
+        return first.add(second);
+    }
+    public static QuantityLength add(
+            double value1,
+            LengthUnit unit1,
+            double value2,
+            LengthUnit unit2) {
+
+        QuantityLength first =
+                new QuantityLength(
+                        value1,
+                        unit1);
+
+        QuantityLength second =
+                new QuantityLength(
+                        value2,
+                        unit2);
+
+        return first.add(second);
     }
 }

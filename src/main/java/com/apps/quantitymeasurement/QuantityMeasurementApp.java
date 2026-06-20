@@ -147,5 +147,58 @@ public class QuantityMeasurementApp {
                 2.54,
                 LengthUnit.CENTIMETER,
                 LengthUnit.INCH);
+        demonstrateLengthAddition(
+
+                new QuantityLength(
+                        1,
+                        LengthUnit.FEET),
+
+                new QuantityLength(
+                        12,
+                        LengthUnit.INCH)
+        );
+
+        demonstrateLengthAddition(
+
+                new QuantityLength(
+                        1,
+                        LengthUnit.YARD),
+
+                new QuantityLength(
+                        3,
+                        LengthUnit.FEET)
+        );
     }
+    public static void demonstrateLengthAddition(
+            QuantityLength first,
+            QuantityLength second) {
+
+        QuantityLength result =
+                first.add(second);
+
+        System.out.println(
+                first +
+                        " + " +
+                        second +
+                        " = " +
+                        result);
+    }
+    public static void demonstrateLengthAddition(
+            double value1,
+            LengthUnit unit1,
+            double value2,
+            LengthUnit unit2) {
+
+        QuantityLength result =
+                QuantityLength.add(
+                        value1,
+                        unit1,
+                        value2,
+                        unit2);
+
+        System.out.println(result);
+    }
+
+
+
 }

@@ -496,4 +496,249 @@ public class QuantityMeasurementAppTest {
                         LengthUnit.FEET,
                         LengthUnit.INCH));
     }
+    @Test
+    void testAddition_SameUnit_FeetPlusFeet() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                2,
+                                LengthUnit.FEET)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        3,
+                        LengthUnit.FEET),
+
+                result);
+    }
+    @Test
+    void testAddition_SameUnit_InchPlusInch() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                6,
+                                LengthUnit.INCH),
+
+                        new QuantityLength(
+                                6,
+                                LengthUnit.INCH)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        12,
+                        LengthUnit.INCH),
+
+                result);
+    }
+    @Test
+    void testAddition_CrossUnit_FeetPlusInches() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        2,
+                        LengthUnit.FEET),
+
+                result);
+    }
+    @Test
+    void testAddition_CrossUnit_InchPlusFeet() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                12,
+                                LengthUnit.INCH),
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        24,
+                        LengthUnit.INCH),
+
+                result);
+    }
+    @Test
+    void testAddition_CrossUnit_YardPlusFeet() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.YARD),
+
+                        new QuantityLength(
+                                3,
+                                LengthUnit.FEET)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        2,
+                        LengthUnit.YARD),
+
+                result);
+    }
+    @Test
+    void testAddition_CrossUnit_CentimeterPlusInch() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                2.54,
+                                LengthUnit.CENTIMETER),
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.INCH)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        5.08,
+                        LengthUnit.CENTIMETER),
+
+                result);
+    }
+    @Test
+    void testAddition_WithZero() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                5,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                0,
+                                LengthUnit.INCH)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        5,
+                        LengthUnit.FEET),
+
+                result);
+    }
+    @Test
+    void testAddition_NegativeValues() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                5,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                -2,
+                                LengthUnit.FEET)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        3,
+                        LengthUnit.FEET),
+
+                result);
+    }
+    @Test
+    void testAddition_NullSecondOperand() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+
+                () -> QuantityLength.add(
+
+                        new QuantityLength(
+                                1,
+                                LengthUnit.FEET),
+
+                        null
+                ));
+    }
+    @Test
+    void testAddition_LargeValues() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                1_000_000,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                1_000_000,
+                                LengthUnit.FEET)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        2_000_000,
+                        LengthUnit.FEET),
+
+                result);
+    }
+    @Test
+    void testAddition_SmallValues() {
+
+        QuantityLength result =
+                QuantityLength.add(
+
+                        new QuantityLength(
+                                0.001,
+                                LengthUnit.FEET),
+
+                        new QuantityLength(
+                                0.002,
+                                LengthUnit.FEET)
+                );
+
+        assertEquals(
+
+                new QuantityLength(
+                        0.003,
+                        LengthUnit.FEET),
+
+                result);
+    }
 }
