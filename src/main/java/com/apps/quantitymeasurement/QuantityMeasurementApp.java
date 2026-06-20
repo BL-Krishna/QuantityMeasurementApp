@@ -1,6 +1,62 @@
 package com.apps.quantitymeasurement;
 
 public class QuantityMeasurementApp {
+    public static class Feet {
+
+        private final double value;
+
+        public Feet(double value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+
+            if (this == obj) {
+                return true;
+            }
+
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+
+            Feet feet = (Feet) obj;
+
+            return Double.compare(value, feet.value) == 0;
+        }
+    }
+    public static class Inches {
+
+        private final double value;
+
+        public Inches(double value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+
+            if (this == obj)
+                return true;
+
+            if (obj == null || getClass() != obj.getClass())
+                return false;
+
+            Inches inches = (Inches) obj;
+
+            return Double.compare(value, inches.value) == 0;
+        }
+    }
+    public static boolean checkInchesEquality(double value1,
+                                              double value2) {
+
+        Inches inch1 = new Inches(value1);
+        Inches inch2 = new Inches(value2);
+
+        return inch1.equals(inch2);
+    }
+
+
 
     public static boolean checkEquality(
             double value1,
@@ -19,18 +75,28 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
+        Feet firstFeet = new Feet(1.0);
+        Feet secondFeet = new Feet(1.0);
+
         System.out.println(
                 checkEquality(
                         1,
-                        LengthUnit.FEET,
-                        12,
+                        LengthUnit.YARD,
+                        3,
+                        LengthUnit.FEET));
+
+        System.out.println(
+                checkEquality(
+                        1,
+                        LengthUnit.YARD,
+                        36,
                         LengthUnit.INCH));
 
         System.out.println(
                 checkEquality(
                         1,
-                        LengthUnit.INCH,
-                        1,
+                        LengthUnit.CENTIMETER,
+                        0.393701,
                         LengthUnit.INCH));
     }
 }
