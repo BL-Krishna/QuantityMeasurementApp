@@ -12,7 +12,39 @@ public class QuantityMeasurementAppTest {
     // FEET TESTS
 
     @Test
-    void testFeetEquality_SameValue() {
+    void testEquality_FeetToFeet_SameValue() {
+
+        QuantityLength first =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.FEET);
+
+        QuantityLength second =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.FEET);
+
+        assertEquals(first, second);
+    }
+
+    @Test
+    void testEquality_InchToInch_SameValue() {
+
+        QuantityLength first =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.INCH);
+
+        QuantityLength second =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.INCH);
+
+        assertEquals(first, second);
+    }
+
+    @Test
+    void testEquality_FeetToInch_EquivalentValue() {
 
         Feet feet1 = new Feet(1.0);
         Feet feet2 = new Feet(1.0);
@@ -21,7 +53,12 @@ public class QuantityMeasurementAppTest {
     }
 
     @Test
-    void testFeetEquality_DifferentValue() {
+    void testEquality_InchToFeet_EquivalentValue() {
+
+        QuantityLength inch =
+                new QuantityLength(
+                        12.0,
+                        LengthUnit.INCH);
 
         Feet feet1 = new Feet(1.0);
         Feet feet2 = new Feet(2.0);
@@ -30,27 +67,67 @@ public class QuantityMeasurementAppTest {
     }
 
     @Test
-    void testFeetEquality_NullComparison() {
+    void testEquality_FeetToFeet_DifferentValue() {
 
-        Feet feet = new Feet(1.0);
+        QuantityLength first =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.FEET);
 
-        assertNotEquals(null, feet);
+        QuantityLength second =
+                new QuantityLength(
+                        2.0,
+                        LengthUnit.FEET);
+
+        assertNotEquals(first, second);
     }
 
     @Test
-    void testFeetEquality_DifferentClass() {
+    void testEquality_InchToInch_DifferentValue() {
 
-        Feet feet = new Feet(1.0);
+        QuantityLength first =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.INCH);
 
-        assertNotEquals(feet, "1.0");
+        QuantityLength second =
+                new QuantityLength(
+                        2.0,
+                        LengthUnit.INCH);
+
+        assertNotEquals(first, second);
     }
 
     @Test
-    void testFeetEquality_SameReference() {
+    void testEquality_SameReference() {
 
-        Feet feet = new Feet(1.0);
+        QuantityLength quantity =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.FEET);
 
-        assertEquals(feet, feet);
+        assertEquals(quantity, quantity);
+    }
+
+    @Test
+    void testEquality_NullComparison() {
+
+        QuantityLength quantity =
+                new QuantityLength(
+                        1.0,
+                        LengthUnit.FEET);
+
+        assertNotEquals(null, quantity);
+    }
+
+    @Test
+    void testEquality_InvalidUnit() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new QuantityLength(
+                        1.0,
+                        null));
     }
 
     // INCH TESTS

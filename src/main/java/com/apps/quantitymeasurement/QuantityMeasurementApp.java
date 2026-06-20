@@ -2,13 +2,17 @@ package com.apps.quantitymeasurement;
 
 public class QuantityMeasurementApp {
 
-    public static class Feet {
+    public static boolean checkEquality(
+            double value1,
+            LengthUnit unit1,
+            double value2,
+            LengthUnit unit2) {
 
-        private final double value;
+        QuantityLength first =
+                new QuantityLength(value1, unit1);
 
-        public Feet(double value) {
-            this.value = value;
-        }
+        QuantityLength second =
+                new QuantityLength(value2, unit2);
 
         @Override
         public boolean equals(Object obj) {
