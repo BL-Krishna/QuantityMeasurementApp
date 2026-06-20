@@ -4,7 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.apps.quantitymeasurement.QuantityMeasurementApp.Feet;
+import com.apps.quantitymeasurement.QuantityMeasurementApp.Inches;
+
 public class QuantityMeasurementAppTest {
+
+    // FEET TESTS
 
     @Test
     void testEquality_FeetToFeet_SameValue() {
@@ -41,17 +46,10 @@ public class QuantityMeasurementAppTest {
     @Test
     void testEquality_FeetToInch_EquivalentValue() {
 
-        QuantityLength feet =
-                new QuantityLength(
-                        1.0,
-                        LengthUnit.FEET);
+        Feet feet1 = new Feet(1.0);
+        Feet feet2 = new Feet(1.0);
 
-        QuantityLength inch =
-                new QuantityLength(
-                        12.0,
-                        LengthUnit.INCH);
-
-        assertEquals(feet, inch);
+        assertEquals(feet1, feet2);
     }
 
     @Test
@@ -62,12 +60,10 @@ public class QuantityMeasurementAppTest {
                         12.0,
                         LengthUnit.INCH);
 
-        QuantityLength feet =
-                new QuantityLength(
-                        1.0,
-                        LengthUnit.FEET);
+        Feet feet1 = new Feet(1.0);
+        Feet feet2 = new Feet(2.0);
 
-        assertEquals(inch, feet);
+        assertNotEquals(feet1, feet2);
     }
 
     @Test
@@ -132,5 +128,67 @@ public class QuantityMeasurementAppTest {
                 () -> new QuantityLength(
                         1.0,
                         null));
+    }
+
+    // INCH TESTS
+
+    @Test
+    void testInchesEquality_SameValue() {
+
+        Inches inch1 = new Inches(1.0);
+        Inches inch2 = new Inches(1.0);
+
+        assertEquals(inch1, inch2);
+    }
+
+    @Test
+    void testInchesEquality_DifferentValue() {
+
+        Inches inch1 = new Inches(1.0);
+        Inches inch2 = new Inches(2.0);
+
+        assertNotEquals(inch1, inch2);
+    }
+
+    @Test
+    void testInchesEquality_NullComparison() {
+
+        Inches inch = new Inches(1.0);
+
+        assertNotEquals(null, inch);
+    }
+
+    @Test
+    void testInchesEquality_DifferentClass() {
+
+        Inches inch = new Inches(1.0);
+
+        assertNotEquals(inch, "1.0");
+    }
+
+    @Test
+    void testInchesEquality_SameReference() {
+
+        Inches inch = new Inches(1.0);
+
+        assertEquals(inch, inch);
+    }
+
+    // STATIC METHOD TESTS
+
+    @Test
+    void testCheckFeetEquality() {
+
+        assertTrue(
+                QuantityMeasurementApp
+                        .checkFeetEquality(1.0, 1.0));
+    }
+
+    @Test
+    void testCheckInchesEquality() {
+
+        assertTrue(
+                QuantityMeasurementApp
+                        .checkInchesEquality(1.0, 1.0));
     }
 }
