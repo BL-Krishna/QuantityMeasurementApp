@@ -73,6 +73,36 @@ public class QuantityMeasurementApp {
         return first.equals(second);
     }
 
+    public static void demonstrateLengthConversion(
+            double value,
+            LengthUnit from,
+            LengthUnit to) {
+
+        double result =
+                QuantityLength.convert(
+                        value,
+                        from,
+                        to);
+
+        System.out.println(
+                value + " " + from +
+                        " = " +
+                        result + " " + to);
+    }
+
+    public static void demonstrateLengthConversion(
+            QuantityLength length,
+            LengthUnit targetUnit) {
+
+        QuantityLength converted =
+                length.convertTo(targetUnit);
+
+        System.out.println(
+                length +
+                        " = " +
+                        converted);
+    }
+
     public static void main(String[] args) {
 
         Feet firstFeet = new Feet(1.0);
@@ -98,5 +128,24 @@ public class QuantityMeasurementApp {
                         LengthUnit.CENTIMETER,
                         0.393701,
                         LengthUnit.INCH));
+        demonstrateLengthConversion(
+                1,
+                LengthUnit.FEET,
+                LengthUnit.INCH);
+
+        demonstrateLengthConversion(
+                3,
+                LengthUnit.YARD,
+                LengthUnit.FEET);
+
+        demonstrateLengthConversion(
+                36,
+                LengthUnit.INCH,
+                LengthUnit.YARD);
+
+        demonstrateLengthConversion(
+                2.54,
+                LengthUnit.CENTIMETER,
+                LengthUnit.INCH);
     }
 }
