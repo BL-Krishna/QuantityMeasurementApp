@@ -3,7 +3,7 @@ package com.apps.quantitymeasurement;
 /**
  * Weight units with Kilogram as the base unit.
  */
-public enum WeightUnit {
+public enum WeightUnit implements IMeasurable {
 
     KILOGRAM(1.0),
 
