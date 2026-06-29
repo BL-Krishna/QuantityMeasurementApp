@@ -107,7 +107,24 @@ public class QuantityMeasurementApp {
 
         Feet firstFeet = new Feet(1.0);
         Feet secondFeet = new Feet(1.0);
+        QuantityLength feet =
+                new QuantityLength(1,
+                        LengthUnit.FEET);
 
+        QuantityLength inch =
+                new QuantityLength(12,
+                        LengthUnit.INCH);
+
+        System.out.println(feet.equals(inch));
+
+        System.out.println(
+                feet.convertTo(
+                        LengthUnit.INCH));
+
+        System.out.println(
+                feet.add(
+                        inch,
+                        LengthUnit.YARD));
         System.out.println(
                 checkEquality(
                         1,

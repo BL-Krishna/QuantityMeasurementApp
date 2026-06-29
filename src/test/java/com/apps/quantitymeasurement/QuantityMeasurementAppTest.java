@@ -174,23 +174,7 @@ public class QuantityMeasurementAppTest {
         assertEquals(inch, inch);
     }
 
-    // STATIC METHOD TESTS
 
-//    @Test
-//    void testCheckFeetEquality() {
-//
-//        assertTrue(
-//                QuantityMeasurementApp
-//                        .checkFeetEquality(1.0, 1.0));
-//    }
-//
-//    @Test
-//    void testCheckInchesEquality() {
-//
-//        assertTrue(
-//                QuantityMeasurementApp
-//                        .checkInchesEquality(1.0, 1.0));
-//    }
 
     @Test
     void testEquality_YardToYard_SameValue() {
@@ -866,5 +850,36 @@ public class QuantityMeasurementAppTest {
                                 LengthUnit.INCH),
 
                         null));
+    }
+    @Test
+    void testConvertToBaseUnit_Inches() {
+        assertEquals(
+                1.0,
+                LengthUnit.INCH.convertToBaseUnit(12),
+                0.0001);
+    }
+
+    @Test
+    void testConvertFromBaseUnit_Inches() {
+        assertEquals(
+                12,
+                LengthUnit.INCH.convertFromBaseUnit(1),
+                0.0001);
+    }
+
+    @Test
+    void testConvertToBaseUnit_Yard() {
+        assertEquals(
+                3,
+                LengthUnit.YARD.convertToBaseUnit(1),
+                0.0001);
+    }
+
+    @Test
+    void testConvertFromBaseUnit_Centimeter() {
+        assertEquals(
+                30.48,
+                LengthUnit.CENTIMETER.convertFromBaseUnit(1),
+                0.0001);
     }
 }
