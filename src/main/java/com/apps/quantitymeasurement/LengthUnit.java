@@ -15,6 +15,12 @@ public enum LengthUnit {
     LengthUnit(double conversionFactor) {
         this.conversionFactor = conversionFactor;
     }
+    public double convertToBaseUnit(double value) {
+        return value * conversionFactor;
+    }
+    public double convertFromBaseUnit(double baseValue) {
+        return baseValue / conversionFactor;
+    }
 
     public double getConversionFactor() {
         return conversionFactor;
