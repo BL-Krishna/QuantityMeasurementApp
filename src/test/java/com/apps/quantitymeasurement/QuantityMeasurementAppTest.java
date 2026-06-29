@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.apps.quantitymeasurement.QuantityMeasurementApp.Feet;
-import com.apps.quantitymeasurement.QuantityMeasurementApp.Inches;
 
 public class QuantityMeasurementAppTest {
 
@@ -43,28 +41,9 @@ public class QuantityMeasurementAppTest {
         assertEquals(first, second);
     }
 
-    @Test
-    void testEquality_FeetToInch_EquivalentValue() {
 
-        Feet feet1 = new Feet(1.0);
-        Feet feet2 = new Feet(1.0);
 
-        assertEquals(feet1, feet2);
-    }
 
-    @Test
-    void testEquality_InchToFeet_EquivalentValue() {
-
-        QuantityLength inch =
-                new QuantityLength(
-                        12.0,
-                        LengthUnit.INCH);
-
-        Feet feet1 = new Feet(1.0);
-        Feet feet2 = new Feet(2.0);
-
-        assertNotEquals(feet1, feet2);
-    }
 
     @Test
     void testEquality_FeetToFeet_DifferentValue() {
@@ -129,52 +108,6 @@ public class QuantityMeasurementAppTest {
                         1.0,
                         null));
     }
-
-    // INCH TESTS
-
-    @Test
-    void testInchesEquality_SameValue() {
-
-        Inches inch1 = new Inches(1.0);
-        Inches inch2 = new Inches(1.0);
-
-        assertEquals(inch1, inch2);
-    }
-
-    @Test
-    void testInchesEquality_DifferentValue() {
-
-        Inches inch1 = new Inches(1.0);
-        Inches inch2 = new Inches(2.0);
-
-        assertNotEquals(inch1, inch2);
-    }
-
-    @Test
-    void testInchesEquality_NullComparison() {
-
-        Inches inch = new Inches(1.0);
-
-        assertNotEquals(null, inch);
-    }
-
-    @Test
-    void testInchesEquality_DifferentClass() {
-
-        Inches inch = new Inches(1.0);
-
-        assertNotEquals(inch, "1.0");
-    }
-
-    @Test
-    void testInchesEquality_SameReference() {
-
-        Inches inch = new Inches(1.0);
-
-        assertEquals(inch, inch);
-    }
-
-
 
     @Test
     void testEquality_YardToYard_SameValue() {
@@ -881,5 +814,136 @@ public class QuantityMeasurementAppTest {
                 30.48,
                 LengthUnit.CENTIMETER.convertFromBaseUnit(1),
                 0.0001);
+    }
+    @Test
+    void testEquality_KilogramToKilogram_SameValue() {
+
+        assertEquals(
+
+                new QuantityWeight(
+                        1,
+                        WeightUnit.KILOGRAM),
+
+                new QuantityWeight(
+                        1,
+                        WeightUnit.KILOGRAM));
+    }
+    @Test
+    void testEquality_KilogramToPound() {
+
+        assertEquals(
+
+                new QuantityWeight(
+                        1,
+                        WeightUnit.KILOGRAM),
+
+                new QuantityWeight(
+                        2.20462,
+                        WeightUnit.POUND));
+    }
+    @Test
+    void testEquality_WeightVsLength() {
+
+        QuantityWeight weight =
+                new QuantityWeight(
+                        1,
+                        WeightUnit.KILOGRAM);
+
+        QuantityLength length =
+                new QuantityLength(
+                        1,
+                        LengthUnit.FEET);
+
+        assertNotEquals(weight, length);
+    }
+    @Test
+    void testConversion_KgToGram() {
+
+        QuantityWeight result =
+
+                new QuantityWeight(
+                        1,
+                        WeightUnit.KILOGRAM)
+
+                        .convertTo(
+                                WeightUnit.GRAM);
+
+        assertEquals(
+                1000,
+                result.getValue(),
+                0.0001);
+    }
+    @Test
+    void testConversion_PoundToKg() {
+
+        QuantityWeight result =
+
+                new QuantityWeight(
+                        2.20462,
+                        WeightUnit.POUND)
+
+                        .convertTo(
+                                WeightUnit.KILOGRAM);
+
+        assertEquals(
+                1,
+                result.getValue(),
+                0.001);
+    }
+    @Test
+    void testAddition_KgPlusGram() {
+
+        QuantityWeight result =
+
+                new QuantityWeight(
+                        1,
+                        WeightUnit.KILOGRAM)
+
+                        .add(
+
+                                new QuantityWeight(
+                                        1000,
+                                        WeightUnit.GRAM));
+
+        assertEquals(
+
+                new QuantityWeight(
+                        2,
+                        WeightUnit.KILOGRAM),
+
+                result);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit() {
+
+        QuantityWeight result =
+
+                new QuantityWeight(
+                        1,
+                        WeightUnit.KILOGRAM)
+
+                        .add(
+
+                                new QuantityWeight(
+                                        1000,
+                                        WeightUnit.GRAM),
+
+                                WeightUnit.GRAM);
+
+        assertEquals(
+                2000,
+                result.getValue(),
+                0.0001);
+    }
+    @Test
+    void testConstructor_NullUnit() {
+
+        assertThrows(
+
+                IllegalArgumentException.class,
+
+                () -> new QuantityWeight(
+                        1,
+                        null));
     }
 }
